@@ -77,12 +77,27 @@ docker-compose exec app php artisan key:generate
 docker-compose exec app php artisan migrate --seed
 ```
 
-### URL http://localhost:8800
-
 ### Local database connection
 
 ```
-localhost:3300
-root
-yourdatabasepassword
+HOST:127.0.01
+PORT:3300
+USER:root
+PASSWORD:yourdatabasepassword
+DATABASE:xgeeks-assignment
 ```
+
+### URL http://localhost:8800
+
+## Login
+
+- Go your database and seed the fake users created and choose one
+- Password for users -> **password**
+
+### Endpoints
+
+#### Create a Token
+
+> Headers must include Accept:application/json
+
+- **POST** - http://localhost:8800/api/login
