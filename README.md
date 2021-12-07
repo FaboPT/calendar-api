@@ -1,27 +1,88 @@
 # xgeeks tech assignment
 
-In this repo you can find the tech challenge we use to evaluate our candidates as part of the interview process. The idea is to approach back-end development.
+## Requirements
 
-Here, you can find the designated assignment details to be evaluated:
-- [ASSIGNMENT](assignment.md)
+- [Docker](https://www.docker.com/products/docker-desktop)
+- [Postman](https://www.postman.com/downloads/)
 
->When delivering the assignments, the closer to production ready it is, the better.
-It's a great plus if you make our job of reviewing the challenge easier by virtualizing/containerizing it so that it runs smoothly on any machine and also give detailed instructions on how to run it.
+## Info
 
-We will discuss the project from a few different points:
+- [Laravel 8 Info](https://laravel.com/docs/8.x/installation)
+- [Structure](structure.md)
 
-**Architecture**. You’re welcome to organize the code in a way that you believe suits best. Here, we’ll discuss possible alternatives and exchange a few ideas
+## Installation/Configuration
 
-**Engineering**. We’ll discuss this point based on the actual code: how it’s organized and written, if it’s easy to get picked up by a new engineer in a team (or in community, if we talk about open source). Of course it’s important that the code is readable, but we’ll go beyond that and talk about coherence of the codebase and its hypothetical (or potential) future.
+### Install dependencies
 
-**Tooling**. How does a completely unfamiliar user with basic technical background get the code and run it? What programs are expected to be available on user’s computer before installing the tool? How could that user potentially do a micro-deploy on their own machine?
+#### macOS / Linux
 
-**Documentation**. Good code is one that documents itself, but sometimes it isn’t enough. We’ll discuss things such as quick start guide, code style and contribution guideline. It’s important that a new team member that joins the team and gets introduced to the codebase, or another team that develops integration, has a really good time exploring the code.
+```
+docker run --rm -v $(pwd):/app composer install
+```
 
-In order to do the assignment please use this repository and notify us when ready in order for us to evaluate the assignment and continue with the interview process.
+#### Windows (Git Bash)
 
-Remember, we are only building a team! There will be a lot of opportunities to learn and go through peer-driven quality review, so we care more about what knowledge and experience you bring to the team. Thank you for taking the time, and we are looking forward to our next interview that will follow up on this little project.
+```
+docker run --rm -v /$(pwd):/app composer install
+```
 
-### In case of issues or doubts
+#### Windows (Powershell)
 
-Please send an email to **career@xgeeks.io** and will get back to you as soon as possible
+```
+docker run --rm -v ${PWD}:/app composer install
+```
+
+### Copy all file .env.example to .env
+
+In terminal if you use macOS / Linux / Git Bash(Windows)
+
+```
+cp .env.example .env
+```
+
+Change database configurations in **.env**
+
+```
+DB_CONNECTION=mysql
+DB_HOST=mysql_xgeeks
+DB_PORT=3306
+DB_DATABASE=xgeeks-assignment
+DB_USERNAME=root
+DB_PASSWORD=yourdatabasepassword
+```
+
+### Configure PHPUnit file
+
+change value line **25** phpunit.xml in **phpunit.xml**
+
+```
+<server name="DB_DATABASE" value="yourdatabasename"/>
+```
+
+### Detach the application
+
+```
+docker-compose up -d
+```
+
+### Generate APP Key
+
+```
+docker-compose exec app php artisan key:generate
+```
+
+### Run the migrations and seed script
+
+```
+docker-compose exec app php artisan migrate --seed
+```
+
+### URL http://localhost:8800
+
+### Local database connection
+
+```
+localhost:3300
+root
+yourdatabasepassword
+```
