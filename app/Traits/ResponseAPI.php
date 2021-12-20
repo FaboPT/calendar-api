@@ -21,6 +21,17 @@ trait ResponseAPI
     }
 
     /**
+     * Send any error response
+     * @param string $message
+     * @param int $statusCode
+     * @return JsonResponse
+     */
+    public function error(string $message, int $statusCode = Response::HTTP_BAD_REQUEST): JsonResponse
+    {
+        return $this->coreResponse($statusCode, $message, false);
+    }
+
+    /**
      * Core of response
      *
      * @param int $statusCode
@@ -30,7 +41,7 @@ trait ResponseAPI
      * @param string $nameData
      * @return JsonResponse
      */
-    public function coreResponse(int $statusCode, string $message = null, bool $isSuccess = true, object $data = null, string $nameData = 'data'): JsonResponse
+    private function coreResponse(int $statusCode, string $message = null, bool $isSuccess = true, object $data = null, string $nameData = 'data'): JsonResponse
     {
         return response()->json($this->responseData($isSuccess, $nameData, $data, $message), $statusCode);
     }
@@ -45,26 +56,14 @@ trait ResponseAPI
      */
     private function responseData(bool $isSuccess, string $nameData, object $data = null, string $message = null): array
     {
-        if ($data) {
-            return [
+        return $data ?
+            [
                 $nameData => $data,
                 'success' => $isSuccess
+            ] :
+            [
+                'message' => $message,
+                'success' => $isSuccess
             ];
-        }
-        return [
-            'message' => $message,
-            'success' => $isSuccess
-        ];
-    }
-
-    /**
-     * Send any error response
-     * @param string $message
-     * @param int $statusCode
-     * @return JsonResponse
-     */
-    public function error(string $message, int $statusCode = Response::HTTP_BAD_REQUEST): JsonResponse
-    {
-        return $this->coreResponse($statusCode, $message, false);
     }
 }

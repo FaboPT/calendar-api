@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AvailabilityController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,5 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [LoginController::class, 'login'])->middleware('throttle:5,1')->name('login');
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('availabilities')->group(function () {
+        Route::post('', [AvailabilityController::class, 'store'])->name('availability.store');
+        Route::put('/{id}', [AvailabilityController::class, 'update'])->name('availability.update')->middleware('permission.edit');
+    });
 
 });

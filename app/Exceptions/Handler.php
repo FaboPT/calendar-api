@@ -3,12 +3,7 @@
 namespace App\Exceptions;
 
 use App\Traits\ResponseAPI;
-use Illuminate\Auth\AuthenticationException;
-use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\Exceptions\ThrottleRequestsException;
-use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -47,7 +42,7 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function render($request, Throwable $e): JsonResponse
+   /* public function render($request, Throwable $e): JsonResponse
     {
         return match (get_class($e)) {
             QueryException::class => $this->error($e->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY),
@@ -56,5 +51,5 @@ class Handler extends ExceptionHandler
             default => $this->error($e->getMessage(), $e->getCode()),
         };
 
-    }
+    }*/
 }
