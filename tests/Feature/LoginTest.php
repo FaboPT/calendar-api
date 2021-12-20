@@ -65,8 +65,8 @@ class LoginTest extends TestCase
     {
         $userError = $this->userError();
         $response = $this->post(route('login'), $userError, $this->headers());
-        $response->assertJsonValidationErrorFor("message");
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonFragment(["message" => trans('auth.failed')]);
+        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
     /** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
