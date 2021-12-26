@@ -69,7 +69,7 @@ class Kernel extends HttpKernel
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission.edit' => CanEdit::class,
         'availability.created' => CanCreateAvailability::class,
-        'event.create' => CanCreateEvent::class,
+        'event.check' => CanCreateEvent::class,
 
 
     ];

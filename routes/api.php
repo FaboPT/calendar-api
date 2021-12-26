@@ -26,8 +26,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::prefix('events')->group(function () {
-        Route::post('', [EventController::class, 'store'])->name('event.store')->middleware('event.create');
-        Route::put('/{id}', [EventController::class, 'update'])->name('event.update')->middleware('permission.edit:events');
+        Route::post('', [EventController::class, 'store'])->name('event.store')->middleware('event.check');
+        Route::put('/{id}', [EventController::class, 'update'])->name('event.update')->middleware(['permission.edit:events', 'event.check']);
         Route::delete('/{id}', [EventController::class, 'destroy'])->name('event.destroy')->middleware('permission.edit:events');
     });
 

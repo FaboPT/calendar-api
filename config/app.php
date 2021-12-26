@@ -232,4 +232,9 @@ return [
 
     ],
 
+    /*
+     * DEFINING MAX TIME TO SCHEDULE THE EVENT
+     */
+    'TIME_MAX' => 60,
+
 ];

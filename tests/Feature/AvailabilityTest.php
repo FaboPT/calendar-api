@@ -27,7 +27,6 @@ class AvailabilityTest extends TestCase
             "Authorization" => 'Bearer' . $this->user()->createToken('Test token Interviewer')->plainTextToken
         ];
     }
-
     /** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
     private function dataPost(): array
     {
@@ -39,7 +38,6 @@ class AvailabilityTest extends TestCase
             "end_time" => Carbon::createFromTime(20)->format('H:i')
         ];
     }
-
     /** @noinspection PhpArrayShapeAttributeCanBeAddedInspection */
     private function dataPostError(): array
     {
@@ -62,7 +60,6 @@ class AvailabilityTest extends TestCase
 
         $this->deleteTokens();
     }
-
     public function testErrorCreateNewAvailability()
     {
         $this->actingAs($this->user());
