@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AvailabilityRequest;
+use App\Http\Requests\Availability\StoreAvailabilityRequest;
+use App\Http\Requests\Availability\UpdateAvailabilityRequest;
 use App\Services\AvailabilityService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -19,10 +20,10 @@ class AvailabilityController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param AvailabilityRequest $request
+     * @param StoreAvailabilityRequest $request
      * @return JsonResponse
      */
-    public function store(AvailabilityRequest $request): JsonResponse
+    public function store(StoreAvailabilityRequest $request): JsonResponse
     {
         $request->merge(['user_id' => Auth::user()->getAuthIdentifier()]);
         return $this->availabilityService->store($request->all());
@@ -31,12 +32,23 @@ class AvailabilityController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param AvailabilityRequest $request
+     * @param UpdateAvailabilityRequest $request
      * @param int $id
      * @return JsonResponse
      */
-    public function update(AvailabilityRequest $request, int $id): JsonResponse
+    public function update(UpdateAvailabilityRequest $request, int $id): JsonResponse
     {
         return $this->availabilityService->update($id, $request->all());
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function destroy(int $id): JsonResponse
+    {
+        return $this->availabilityService->destroy($id);
     }
 }

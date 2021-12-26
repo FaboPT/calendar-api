@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Availability;
 use App\Traits\ResponseAPI;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class CanEdit
@@ -18,21 +18,21 @@ class CanEdit
      *
      * @param Request $request
      * @param Closure $next
+     * @param String $table
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, string $table)
     {
-        $availability = Availability::find($request->id);
-
-        if ($this->isEditable($availability)) {
+        $resource = DB::table($table)->find($request->id);
+        if ($this->isEditable($resource)) {
             return $next($request);
         }
         return $this->error('Access Denied', Response::HTTP_FORBIDDEN);
 
     }
 
-    private function isEditable(Availability $availability): bool
+    private function isEditable(mixed $resource): bool
     {
-        return $availability->user_id === Auth::user()->getAuthIdentifier();
+        return $resource->user_id === Auth::user()->getAuthIdentifier();
     }
 }

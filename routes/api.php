@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AvailabilityController;
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,8 +20,15 @@ Route::post('/login', [LoginController::class, 'login'])->middleware('throttle:5
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('availabilities')->group(function () {
-        Route::post('', [AvailabilityController::class, 'store'])->name('availability.store');
-        Route::put('/{id}', [AvailabilityController::class, 'update'])->name('availability.update')->middleware('permission.edit');
+        Route::post('', [AvailabilityController::class, 'store'])->name('availability.store')->middleware('availability.created');
+        Route::put('/{id}', [AvailabilityController::class, 'update'])->name('availability.update')->middleware('permission.edit:availabilities');
+        Route::delete('/{id}', [AvailabilityController::class, 'destroy'])->name('availability.update')->middleware('permission.edit:availabilities');
+    });
+
+    Route::prefix('events')->group(function () {
+        Route::post('', [EventController::class, 'store'])->name('event.store')->middleware('event.create');
+        Route::put('/{id}', [EventController::class, 'update'])->name('event.update')->middleware('permission.edit:events');
+        Route::delete('/{id}', [EventController::class, 'destroy'])->name('event.destroy')->middleware('permission.edit:events');
     });
 
 });

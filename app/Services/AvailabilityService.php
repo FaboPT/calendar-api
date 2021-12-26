@@ -64,10 +64,12 @@ class AvailabilityService extends BaseService
      * Service delete availability
      * @param int $id
      * @return JsonResponse
-     * @throws NotImplementedException
      */
     public function destroy(int $id): JsonResponse
     {
-        throw new NotImplementedException('Not implemented', Response::HTTP_NOT_IMPLEMENTED);
+        DB::transaction(function () use (&$id) {
+            $this->availabilityRepository->destroy($id);
+        });
+        return $this->success('Availability successfully deleted');
     }
 }

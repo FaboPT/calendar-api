@@ -38,7 +38,8 @@ class AvailabilityRepository extends BaseRepository
 
     public function destroy(int $id): bool
     {
-        throw new NotImplementedException('Not implemented', Response::HTTP_NOT_IMPLEMENTED);
+        $availability = $this->availability->findOrFail($id);
+        return $availability->delete();
     }
 
 

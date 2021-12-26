@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CanCreateAvailability;
+use App\Http\Middleware\CanCreateEvent;
 use App\Http\Middleware\CanEdit;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -66,6 +68,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission.edit' => CanEdit::class,
+        'availability.created' => CanCreateAvailability::class,
+        'event.create' => CanCreateEvent::class,
 
 
     ];
