@@ -17,7 +17,6 @@ class CreateEventsUsersTable extends Migration
             $table->foreignId('event_id')->constrained('events')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->primary(['event_id', 'user_id']);
-            $table->timestamps();
         });
     }
 

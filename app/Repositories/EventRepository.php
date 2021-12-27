@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Event;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Nette\NotImplementedException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,6 +28,7 @@ class EventRepository extends BaseRepository
     {
         $event = $this->event->create($attributes);
         $users = $attributes['users'] ?? [];
+        $users[] = Auth::user()->getAuthIdentifier();
         $event->eventUsers()->sync($users);
         return $event;
     }
@@ -35,7 +37,8 @@ class EventRepository extends BaseRepository
     {
         $event = $this->event->findOrFail($id);
         $event->update($attributes);
-        $users[] = $attributes['users'] ?? [];
+        $users = $attributes['users'] ?? [];
+        $users[] = Auth::user()->getAuthIdentifier();
         $event->eventUsers()->sync($users);
         return $event;
 
@@ -44,7 +47,8 @@ class EventRepository extends BaseRepository
     public function destroy(int $id): bool
     {
         $event = $this->event->findOrFail($id);
-        return $event->eventUsers()->delete();
+        $event->eventUsers()->sync([]);
+        return $event->delete();
     }
 
 
