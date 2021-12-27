@@ -42,7 +42,7 @@ class AvailabilityTest extends TestCase
     private function dataPostError(): array
     {
         return [
-            "start_date" => Carbon::create(2021, 12, 24)->format('Y-d-m'),
+            "start_date" => Carbon::create(2021, 12, 24)->format('Y-m-d'),
             "end_date" => Carbon::create(2021, 12, 24)->format('Y-m-d'),
             "day" => "Friday",
             "start_time" => Carbon::createFromTime(8)->format('H:i'),
@@ -56,7 +56,10 @@ class AvailabilityTest extends TestCase
         $data = $this->dataPost();
         $response = $this->post(route('availability.store'), $data, $this->headers());
 
-        $response->assertJsonFragment(["message" => true])->assertCreated();
+        $response->assertJson([
+            "message" => "Availability successfully created",
+            "success" => true
+        ])->assertCreated();
 
         $this->deleteTokens();
     }
@@ -66,7 +69,10 @@ class AvailabilityTest extends TestCase
         $data = $this->dataPostError();
         $response = $this->post(route('availability.store'), $data, $this->headers());
 
-        $response->assertJsonValidationErrors(['start_date', 'end_date'])->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJson([
+            "message" => "Availability already created",
+            'success' => false
+        ])->assertStatus(Response::HTTP_CONFLICT);
 
         $this->deleteTokens();
     }
