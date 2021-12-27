@@ -96,8 +96,50 @@ DATABASE:xgeeks-assignment
 
 ### Endpoints
 
-#### Create a Token
-
 > Headers must include Accept:application/json
 
+#### Create a Token
+
 - **POST** - http://localhost:8800/api/login
+
+#### Availabilities
+
+##### Data example
+
+````
+{
+    "start_date":"2021-12-24",
+    "end_date": "2021-12-24",
+    "day":"Friday"
+    "start_time":"21:30",
+    "end_time": "22:00"
+}
+````
+
+- **GET** - http://localhost:8800/api/availabilities -> Get combined availabilities
+- **POST** - http://localhost:8800/api/availabilities -> Create new availability
+- **PUT** - http://localhost:8800/api/availabilities/{id} ->  Edit a Availability
+- **DELETE** - http://localhost:8800/api/availabilities/{id} ->  Delete a Availability
+
+#### Events
+
+##### Data example
+
+````
+{
+    "name":"Event x"
+    "day_date":"2021-12-24",
+    "start_ime": "08:00",
+    "end_time":"09:00",
+    "description":"notes about this meeting"
+    "users":[1,2,3,4,5]
+}
+````
+
+- **POST** - http://localhost:8800/api/events -> Create new Event
+- **PUT** - http://localhost:8800/api/events/{id} ->  Edit a Event
+- **DELETE** - http://localhost:8800/api/events/{id} -> Delete a Event
+
+
+
+
