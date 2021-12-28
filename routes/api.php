@@ -23,6 +23,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('', [AvailabilityController::class, 'store'])->name('availability.store')->middleware('availability.created');
         Route::put('/{id}', [AvailabilityController::class, 'update'])->name('availability.update')->middleware('permission.edit:availabilities');
         Route::delete('/{id}', [AvailabilityController::class, 'destroy'])->name('availability.update')->middleware('permission.edit:availabilities');
+        Route::get('', [AvailabilityController::class, 'index'])->name('availability.index');
+
     });
 
     Route::prefix('events')->group(function () {

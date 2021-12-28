@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Availability;
+use App\Models\EventUser;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Nette\NotImplementedException;
@@ -40,6 +41,12 @@ class AvailabilityRepository extends BaseRepository
     {
         $availability = $this->availability->findOrFail($id);
         return $availability->delete();
+    }
+
+    public function combined(array $attributes): \Illuminate\Support\Collection
+    {
+        $events_users = EventUser::with('event')->whereIn('user_id', $attributes)->get();
+        return Availability::whereIn('user_id', $attributes)->orderBy('start_date')->get()->groupBy('start_date');
     }
 
 

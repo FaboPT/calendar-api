@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Availability\AvailabilityGetRequest;
 use App\Http\Requests\Availability\StoreAvailabilityRequest;
 use App\Http\Requests\Availability\UpdateAvailabilityRequest;
 use App\Services\AvailabilityService;
@@ -50,5 +51,16 @@ class AvailabilityController extends Controller
     public function destroy(int $id): JsonResponse
     {
         return $this->availabilityService->destroy($id);
+    }
+
+    /**
+     * Search availabilities
+     * @param AvailabilityGetRequest $request
+     * @return JsonResponse
+     */
+
+    public function index(AvailabilityGetRequest $request): JsonResponse
+    {
+        return $this->availabilityService->combined($request->users);
     }
 }

@@ -13,7 +13,7 @@ class Availability extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'availabilities';
-    protected $dates = ['start_date', 'end_date', 'start_time', 'end_time'];
+    protected $dates = ['end_date', 'start_time', 'end_time'];
     protected $guarded = ['id'];
 
     /**
@@ -31,6 +31,6 @@ class Availability extends Model
 
     public function scopeMyAvailabilities($query, $user_id = null)
     {
-        return $query->where('user_id', $user_id ?: Auth::user()->id);
+        return $query->where('user_id', $user_id ?: Auth::user()->getAuthIdentifier());
     }
 }

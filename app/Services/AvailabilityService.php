@@ -6,7 +6,6 @@ use App\Repositories\AvailabilityRepository;
 use App\Traits\ResponseAPI;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
-use Nette\NotImplementedException;
 use Symfony\Component\HttpFoundation\Response;
 
 class AvailabilityService extends BaseService
@@ -27,11 +26,10 @@ class AvailabilityService extends BaseService
     /**
      * Service get all availability
      * @return JsonResponse
-     * @throws NotImplementedException
      */
     public function all(): JsonResponse
     {
-        throw new NotImplementedException('Not implemented', Response::HTTP_NOT_IMPLEMENTED);
+      return $this->success(null, Response::HTTP_OK, $this->availabilityRepository->all(), 'availabilities');
     }
 
     /**
@@ -71,5 +69,15 @@ class AvailabilityService extends BaseService
             $this->availabilityRepository->destroy($id);
         });
         return $this->success('Availability successfully deleted');
+    }
+
+    /**
+     * Service get combined availabilities
+     * @param array $attributes
+     * @return JsonResponse
+     */
+    public function combined(array $attributes): JsonResponse
+    {
+        return $this->success(null, Response::HTTP_OK, $this->availabilityRepository->combined($attributes), 'availabilities');
     }
 }
