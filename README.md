@@ -1,93 +1,145 @@
-# xgeeks-test
+# xgeeks tech assignment
 
+## Requirements
 
+- [Docker](https://www.docker.com/products/docker-desktop)
+- [Postman](https://www.postman.com/downloads/)
 
-## Getting started
+## Info
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+- [Laravel 8 Info](https://laravel.com/docs/8.x/installation)
+- [Structure](structure.md)
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Installation/Configuration
 
-## Add your files
+### Install dependencies
 
-- [ ] [Create](https://gitlab.com/-/experiment/new_project_readme_content:bae7134b6a3044ad411c717c9a12a299?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://gitlab.com/-/experiment/new_project_readme_content:bae7134b6a3044ad411c717c9a12a299?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://gitlab.com/-/experiment/new_project_readme_content:bae7134b6a3044ad411c717c9a12a299?https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+#### macOS / Linux
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/FaboPT/xgeeks-test.git
-git branch -M main
-git push -uf origin main
+docker run --rm -v $(pwd):/app composer install
 ```
 
-## Integrate with your tools
+#### Windows (Git Bash)
 
-- [ ] [Set up project integrations](https://gitlab.com/-/experiment/new_project_readme_content:bae7134b6a3044ad411c717c9a12a299?https://gitlab.com/FaboPT/xgeeks-test/-/settings/integrations)
+```
+docker run --rm -v /$(pwd):/app composer install
+```
 
-## Collaborate with your team
+#### Windows (Powershell)
 
-- [ ] [Invite team members and collaborators](https://gitlab.com/-/experiment/new_project_readme_content:bae7134b6a3044ad411c717c9a12a299?https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://gitlab.com/-/experiment/new_project_readme_content:bae7134b6a3044ad411c717c9a12a299?https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://gitlab.com/-/experiment/new_project_readme_content:bae7134b6a3044ad411c717c9a12a299?https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://gitlab.com/-/experiment/new_project_readme_content:bae7134b6a3044ad411c717c9a12a299?https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://gitlab.com/-/experiment/new_project_readme_content:bae7134b6a3044ad411c717c9a12a299?https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+```
+docker run --rm -v ${PWD}:/app composer install
+```
 
-## Test and Deploy
+### Copy all file .env.example to .env
 
-Use the built-in continuous integration in GitLab.
+In terminal if you use macOS / Linux / Git Bash(Windows)
 
-- [ ] [Get started with GitLab CI/CD](https://gitlab.com/-/experiment/new_project_readme_content:bae7134b6a3044ad411c717c9a12a299?https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://gitlab.com/-/experiment/new_project_readme_content:bae7134b6a3044ad411c717c9a12a299?https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://gitlab.com/-/experiment/new_project_readme_content:bae7134b6a3044ad411c717c9a12a299?https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://gitlab.com/-/experiment/new_project_readme_content:bae7134b6a3044ad411c717c9a12a299?https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://gitlab.com/-/experiment/new_project_readme_content:bae7134b6a3044ad411c717c9a12a299?https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+```
+cp .env.example .env
+```
 
-***
+Change database configurations in **.env**
 
-# Editing this README
+```
+DB_CONNECTION=mysql
+DB_HOST=mysql_xgeeks
+DB_PORT=3306
+DB_DATABASE=xgeeks-assignment
+DB_USERNAME=root
+DB_PASSWORD=yourdatabasepassword
+```
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://gitlab.com/-/experiment/new_project_readme_content:bae7134b6a3044ad411c717c9a12a299?https://www.makeareadme.com/) for this template.
+### Configure PHPUnit file
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+change value line **25** phpunit.xml in **phpunit.xml**
 
-## Name
-Choose a self-explaining name for your project.
+```
+<server name="DB_DATABASE" value="yourdatabasename"/>
+```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+### Detach the application
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+```
+docker-compose up -d
+```
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+### Generate APP Key
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+```
+docker-compose exec app php artisan key:generate
+```
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Run the migrations and seed script
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+```
+docker-compose exec app php artisan migrate --seed
+```
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+### Local database connection
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+```
+HOST:127.0.01
+PORT:3300
+USER:root
+PASSWORD:yourdatabasepassword
+DATABASE:xgeeks-assignment
+```
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+### URL http://localhost:8800
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+## Login
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+- Go your database and seed the fake users created and choose one
+- Password for users -> **password**
 
-## License
-For open source projects, say how it is licensed.
+### Endpoints
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+> Headers must include Accept:application/json
+
+#### Create a Token
+
+- **POST** - http://localhost:8800/api/login
+
+#### Availabilities
+
+##### Data example
+
+````
+{
+    "start_date":"2021-12-24",
+    "end_date": "2021-12-24",
+    "day":"Friday"
+    "start_time":"21:30",
+    "end_time": "22:00"
+}
+````
+
+- **GET** - http://localhost:8800/api/availabilities -> Get combined availabilities
+- **POST** - http://localhost:8800/api/availabilities -> Create new availability
+- **PUT** - http://localhost:8800/api/availabilities/{id} ->  Edit a Availability
+- **DELETE** - http://localhost:8800/api/availabilities/{id} ->  Delete a Availability
+
+#### Events
+
+##### Data example
+
+````
+{
+    "name":"Event x"
+    "day_date":"2021-12-24",
+    "start_ime": "08:00",
+    "end_time":"09:00",
+    "description":"notes about this meeting"
+    "users":[1,2,3,4,5]
+}
+````
+
+- **POST** - http://localhost:8800/api/events -> Create new Event
+- **PUT** - http://localhost:8800/api/events/{id} ->  Edit a Event
+- **DELETE** - http://localhost:8800/api/events/{id} -> Delete a Event
+
+
+
 
