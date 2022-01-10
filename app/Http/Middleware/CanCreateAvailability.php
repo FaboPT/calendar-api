@@ -22,7 +22,7 @@ class CanCreateAvailability
     public function handle(Request $request, Closure $next)
     {
 
-        if ($this->isCreatable($request)) {
+        if ($this->isContent($request) && $this->isCreatable($request)) {
             return $next($request);
         }
         return $this->error('Availability already created', Response::HTTP_CONFLICT);
@@ -34,5 +34,10 @@ class CanCreateAvailability
         return !Availability::MyAvailabilities()->where('start_date', $request->start_date)->where('end_date', $request->end_date)
             ->where('start_time', '<', $request->end_time)->where('end_time', '>', $request->start_time)->get()->count();
 
+    }
+
+    private function isContent(Request $request) : bool
+    {
+        return $request->getContent();
     }
 }
