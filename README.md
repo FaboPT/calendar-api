@@ -1,4 +1,4 @@
-# xgeeks tech assignment
+# Calendar API
 
 ## Requirements
 
