@@ -1,11 +1,11 @@
 version: "3.9"
 networks:
-    app-xgeeks:
+    app-calendar-api:
 
 services:
     nginx:
         image: nginx:stable
-        container_name: nginx_xgeeks
+        container_name: nginx_calendar
         ports:
             - "8800:80"
         volumes:
@@ -15,10 +15,10 @@ services:
             - app
             - mysql
         networks:
-            - app-xgeeks
+            - app-calendar-api
     mysql:
         image: mysql:8
-        container_name: mysql_xgeeks
+        container_name: mysql_calendar
         restart: unless-stopped
         tty: true
         ports:
@@ -36,12 +36,12 @@ services:
         build:
             context: ./
             dockerfile: Dockerfile
-        container_name: php_xgeeks
+        container_name: php_calendar
         working_dir: /var/www
         volumes:
             - ./:/var/www:delegated
             - ./vendor:/var/www/vendor:cached
         networks:
-            - app-xgeeks
+            - app-calendar-api
 volumes:
     mysql_data:

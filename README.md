@@ -44,9 +44,9 @@ Change database configurations in **.env**
 
 ```
 DB_CONNECTION=mysql
-DB_HOST=mysql_xgeeks
+DB_HOST=mysql_calendar
 DB_PORT=3306
-DB_DATABASE=xgeeks-assignment
+DB_DATABASE=calendar-api
 DB_USERNAME=root
 DB_PASSWORD=yourdatabasepassword
 ```
@@ -84,7 +84,7 @@ HOST:127.0.01
 PORT:3300
 USER:root
 PASSWORD:yourdatabasepassword
-DATABASE:xgeeks-assignment
+DATABASE:calendar-api
 ```
 
 ### URL http://localhost:8800
