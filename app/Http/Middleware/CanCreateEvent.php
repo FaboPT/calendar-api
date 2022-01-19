@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Models\Event;
 use App\Traits\ResponseAPI;
+use App\Traits\Utils;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
@@ -11,15 +12,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CanCreateEvent
 {
-    use ResponseAPI;
+    use ResponseAPI, Utils;
 
     public function handle(Request $request, Closure $next)
     {
-
         if ($this->isCreatable($request)) {
             return $next($request);
         }
-        return $this->error('Not possible create a event, because there is already an event at that time, please change the event', Response::HTTP_CONFLICT);
+        return $this->error(
+            'Not possible create a event, because there is already an event at that time, please change the event',
+            Response::HTTP_CONFLICT
+        );
 
     }
 
@@ -32,7 +35,8 @@ class CanCreateEvent
     private function isValidEvent(Request $request): bool
     {
         return !Event::MyOwnerEvents()->where('day_date', $request->day_date)
-            ->where('start_time', '<', $this->parseTime($request->end_time))->where('end_time', '>', $this->parseTime($request->start_time))->get()->count();
+            ->where('start_time', '<', $this->parseTime($request->end_time))
+            ->where('end_time', '>', $this->parseTime($request->start_time))->get()->count();
     }
 
     private function isValidDurationEvent(Request $request): bool
@@ -45,10 +49,5 @@ class CanCreateEvent
         $start = Carbon::parse($request->start_time);
         $end = Carbon::parse($request->end_time);
         return $start->diffInMinutes($end);
-    }
-
-    private function parseTime($time): string
-    {
-        return Carbon::parse($time)->format('H:i:s');
     }
 }
