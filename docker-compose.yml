@@ -1,6 +1,6 @@
 version: "3.9"
 networks:
-    app-calendar-api:
+    calendar-api:
 
 services:
     nginx:
@@ -15,7 +15,7 @@ services:
             - app
             - mysql
         networks:
-            - app-calendar-api
+            - calendar-api
     mysql:
         image: mysql:8
         container_name: mysql_calendar
@@ -29,7 +29,7 @@ services:
             SERVICE_TAGS: dev
             SERVICE_NAME: mysql
         networks:
-            - app-xgeeks
+            - calendar-api
         volumes:
             - mysql_data:/var/lib/mysql
     app:
@@ -42,6 +42,6 @@ services:
             - ./:/var/www:delegated
             - ./vendor:/var/www/vendor:cached
         networks:
-            - app-calendar-api
+            - calendar-api
 volumes:
     mysql_data:
