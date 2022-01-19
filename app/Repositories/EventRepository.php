@@ -16,7 +16,6 @@ class EventRepository extends BaseRepository
     public function __construct(Event $event)
     {
         $this->event = $event;
-        parent::__construct($this->event);
     }
 
     public function all(): Collection

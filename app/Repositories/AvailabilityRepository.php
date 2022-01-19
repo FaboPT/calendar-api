@@ -16,7 +16,6 @@ class AvailabilityRepository extends BaseRepository
     public function __construct(Availability $availability)
     {
         $this->availability = $availability;
-        parent::__construct($this->availability);
     }
 
     public function all(): Collection
