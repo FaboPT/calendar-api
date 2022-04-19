@@ -93,6 +93,15 @@ DATABASE:calendar-api
 
 - Go your database and seed the fake users created and choose one
 - Password for users -> **password**
+- 
+### Configure Access Local Database
+
+```
+Host: 127.0.0.1
+Port: 3300
+Username : root
+Password: yourdatabasepassword
+```
 
 ### Endpoints
 
