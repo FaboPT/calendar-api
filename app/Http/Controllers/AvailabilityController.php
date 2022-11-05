@@ -26,7 +26,7 @@ class AvailabilityController extends Controller
      */
     public function store(StoreAvailabilityRequest $request): JsonResponse
     {
-        $request->merge(['user_id' => Auth::user()->getAuthIdentifier()]);
+        $request->merge(['user_id' => Auth::user()?->getAuthIdentifier()]);
         return $this->availabilityService->store($request->all());
     }
 
