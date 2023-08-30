@@ -13,13 +13,15 @@
         "spatie/laravel-permission": "^5.4"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest",
-        "spatie/laravel-ignition": "^2.0",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
-        "phpunit/phpunit": "^10.0"
+        "phpunit/phpunit": "^10.0",
+        "rakutentech/laravel-request-docs": "^2.14",
+        "rector/rector": "^0.18.1",
+        "roave/security-advisories": "dev-latest",
+        "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
         "psr-4": {

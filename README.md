@@ -3,7 +3,7 @@
 ## Requirements
 
 - [Docker](https://www.docker.com/products/docker-desktop)
-- [Postman](https://www.postman.com/downloads/)
+- [Postman](https://www.postman.com/downloads/) OR another service
 
 ## Info
 
