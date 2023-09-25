@@ -26,7 +26,7 @@ class EventService extends BaseService
     }
 
     /**
-     * Service get all event
+     * Service get all events
      * @return JsonResponse
      * @throws NotImplementedException
      */
