@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\EventRepository;
 use App\Traits\ResponseAPI;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Nette\NotImplementedException;
@@ -41,10 +42,16 @@ class EventService extends BaseService
      */
     public function store(array $data): JsonResponse
     {
-        DB::transaction(function () use (&$data) {
-            $this->eventRepository->store($data);
-        });
-        return $this->success('Event successfully created', Response::HTTP_CREATED);
+        try {
+            DB::transaction(function () use (&$data) {
+                $this->eventRepository->store($data);
+            });
+
+            return $this->success('Event successfully created', Response::HTTP_CREATED);
+        } catch (Exception $e) {
+            return $this->error($e->getMessage(), $e->getCode() ?: Response::HTTP_BAD_REQUEST);
+        }
+
     }
 
     /** Service update event
@@ -54,10 +61,16 @@ class EventService extends BaseService
      */
     public function update(int $id, array $data): JsonResponse
     {
-        DB::transaction(function () use (&$id, &$data) {
-            $this->eventRepository->update($id, $data);
-        });
-        return $this->success('Event successfully updated');
+        try {
+            DB::transaction(function () use (&$id, &$data) {
+                $this->eventRepository->update($id, $data);
+            });
+
+            return $this->success('Event successfully updated');
+
+        } catch (Exception $e) {
+            return $this->error($e->getMessage(), $e->getCode() ?: Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
@@ -67,9 +80,15 @@ class EventService extends BaseService
      */
     public function destroy(int $id): JsonResponse
     {
-        DB::transaction(function () use (&$id) {
-            $this->eventRepository->destroy($id);
-        });
-        return $this->success('Event successfully deleted');
+        try {
+
+            DB::transaction(function () use (&$id) {
+                $this->eventRepository->destroy($id);
+            });
+
+            return $this->success('Event successfully deleted');
+        } catch (Exception $e) {
+            return $this->error($e->getMessage(), $e->getCode() ?: Response::HTTP_BAD_REQUEST);
+        }
     }
 }
