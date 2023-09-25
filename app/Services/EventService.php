@@ -43,9 +43,7 @@ class EventService extends BaseService
     public function store(array $data): JsonResponse
     {
         try {
-            DB::transaction(function () use (&$data) {
-                $this->eventRepository->store($data);
-            });
+            DB::transaction(fn() => $this->eventRepository->store($data));
 
             return $this->success('Event successfully created', Response::HTTP_CREATED);
         } catch (Exception $e) {
@@ -62,9 +60,7 @@ class EventService extends BaseService
     public function update(int $id, array $data): JsonResponse
     {
         try {
-            DB::transaction(function () use (&$id, &$data) {
-                $this->eventRepository->update($id, $data);
-            });
+            DB::transaction(fn() => $this->eventRepository->update($id, $data));
 
             return $this->success('Event successfully updated');
 
@@ -82,9 +78,7 @@ class EventService extends BaseService
     {
         try {
 
-            DB::transaction(function () use (&$id) {
-                $this->eventRepository->destroy($id);
-            });
+            DB::transaction(fn() => $this->eventRepository->destroy($id));
 
             return $this->success('Event successfully deleted');
         } catch (Exception $e) {
