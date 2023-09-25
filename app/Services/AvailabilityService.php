@@ -41,9 +41,7 @@ class AvailabilityService extends BaseService
     public function store(array $data): JsonResponse
     {
         try {
-            DB::transaction(function () use (&$data) {
-                $this->availabilityRepository->store($data);
-            });
+            DB::transaction(fn() => $this->availabilityRepository->store($data));
 
             return $this->success('Availability successfully created', Response::HTTP_CREATED);
         } catch (Exception $e) {
@@ -60,9 +58,7 @@ class AvailabilityService extends BaseService
     public function update(int $id, array $data): JsonResponse
     {
         try {
-            DB::transaction(function () use (&$id, &$data) {
-                $this->availabilityRepository->update($id, $data);
-            });
+            DB::transaction(fn() => $this->availabilityRepository->update($id, $data));
 
             return $this->success('Availability successfully updated');
         } catch (Exception $e) {
@@ -79,9 +75,7 @@ class AvailabilityService extends BaseService
     public function destroy(int $id): JsonResponse
     {
         try {
-            DB::transaction(function () use (&$id) {
-                $this->availabilityRepository->destroy($id);
-            });
+            DB::transaction(fn() => $this->availabilityRepository->destroy($id));
 
             return $this->success('Availability successfully deleted');
 
