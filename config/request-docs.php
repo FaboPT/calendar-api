@@ -12,7 +12,7 @@ return [
     * Route where request docs will be served from laravel app.
     * localhost:8800/api
     */
-    'url' => '/api',
+    'url' => '/api/docs',
     'middlewares' => [
         // \Rakutentech\LaravelRequestDocs\NotFoundWhenProduction::class,
     ],
@@ -34,6 +34,7 @@ return [
         '#^sanctum#',
         '#^_ignition#',
         '#^_tt#',
+        ''
     ],
 
     'hide_meta_data' => false,
